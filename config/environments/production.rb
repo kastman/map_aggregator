@@ -22,3 +22,6 @@ config.action_controller.perform_caching             = true
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
+
+# Google Maps API Key for quecha.homedns.org:3001
+GOOGLE_APPLICATION_ID = "ABQIAAAAjuRQSrsTbjQTxP0dDutJTxToKradeazlSfjg7PIrWKYzm49ClhTBZ9Op-596nsfcfUjIDDL_D1u4og"

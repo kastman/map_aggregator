@@ -1,6 +1,51 @@
 <h2><%= @user.login %></h2>
 
-<% form_for @user do |f| %>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAA3HdfrnxFAPWyY-aiJUxmqRTJQA0g3IQ9GZqIMmInSLzwtGDKaBQ0KYLwBEKSM7F9gCevcsIf6WPuIQ&amp;sensor=false"
+            type="text/javascript"></script>
+			
+<script type="text/javascript">
+	var map_canvas;
+	var map_canvas_marker_visitor;
+	var loc;
+
+    function initialize() {
+      if (GBrowserIsCompatible()) {
+        var map_canvas = new GMap2(document.getElementById("map_canvas"));
+        var center = new GLatLng(<%= "#{@user.lat},#{@user.lng}" %>);
+		map_canvas.addControl(new GSmallZoomControl());
+		map_canvas.addControl(new GOverviewMapControl());
+		map_canvas.addControl(new GScaleControl());
+		map_canvas.addControl(new GMapTypeControl());
+
+		map_canvas.setCenter(center, 13);
+
+		map_canvas_marker_visitor = new GMarker(center, {draggable: true});
+
+		GEvent.addListener(map_canvas_marker_visitor, "dragstart", function() {
+			map_canvas.closeInfoWindow();
+		});
+
+		GEvent.addListener(map_canvas_marker_visitor, "dragend", function() {
+			loc = map_canvas_marker_visitor.getLatLng();
+			map_canvas_marker_visitor.openInfoWindowHtml(loc.toString());
+			document.getElementById("user_lat").value = loc.lat();
+			document.getElementById("user_lng").value = loc.lng();
+
+		});
+
+		map_canvas.addOverlay(map_canvas_marker_visitor);
+
+      }
+    }
+
+	window.onload = initialize;
+	
+
+</script>
+	
+<div id="map_canvas" style="width: 500px; height: 300px"></div>
+
+<% form_for @user, :html => { :multipart => :true } do |f| %>
   <%= f.label :login %>
   <%= f.text_field :login %>
   
@@ -10,6 +55,9 @@
   
   <%= f.label :lng, "Longitude:" %>
   <%= f.text_field :lng %>
+  
+  <%= f.file_field :avatar %>
+  
   </p>
   
   <%= submit_tag "Update" %>

@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   validates_presence_of     :login, :email
   validates_presence_of     :password,                   :if => :password_required?
   validates_presence_of     :password_confirmation,      :if => :password_required?
+  validates_presence_of     :lat, :lng, :zipcode
   validates_length_of       :password, :within => 4..40, :if => :password_required?
   validates_confirmation_of :password,                   :if => :password_required?
   validates_length_of       :login,    :within => 3..40
@@ -13,9 +14,19 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :login, :email, :case_sensitive => false
   before_save :encrypt_password
   
+  acts_as_mappable
+  
+  has_attached_file :avatar,	:styles => { :medium => "300x300>",
+								:thumb => "100x100>" },
+								:url => "/assets/:attachment/:id/:style/:basename.:extension",
+								:path => ":rails_root/public/assets/:attachment/:id/:style/:basename.:extension"
+  
+  validates_attachment_size :avatar, :less_than => 5.megabytes
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif']
+  
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :lat, :lng
+  attr_accessible :login, :email, :password, :password_confirmation, :lat, :lng, :zipcode, :avatar
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)

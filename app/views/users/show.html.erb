@@ -1,19 +1,28 @@
 <h2><%= @user.login %></h2>
-
-<%
-  map = GoogleMap.new(:zoom => 11)
-  map.markers << GoogleMapMarker.new (
+<%= image_tag @user.avatar.url %>
+<% map = GoogleMap.new %>
+<%  map.markers << GoogleMapMarker.new(
     :map => map,
     :lat => @user.lat,
     :lng => @user.lng,
-    :html => 'The Schloss')
+    :html => @user.login)
 %>
+<h3>People Near Me</h3>
+<% @users.each do |user| %>
+  <% map.markers << GoogleMapMarker.new(
+	:map => map,
+	:lat => user.lat,
+	:lng => user.lng,
+	:html => user.login )     
+  %>
+  <%= link_to user.login, user %>
+<% end%>
 
 <%= map.to_html %>
 <%= map.div("100%", "80%") %>
-<p>
-  <%= "(#{@user.lat},#{@user.lng}) | " %>
-  <%= link_to "Edit #{@user.login}", edit_user_path(@user) %>
+<p style="font-size: 90%">
+  <%= "Current Location: (#{@user.lat},#{@user.lng})" %><br/>
+  <%= link_to "Edit Your Details", edit_user_path(@user) %>
 </p>
 
 <p>Default Lat:

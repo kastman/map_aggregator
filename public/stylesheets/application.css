@@ -1,0 +1,7 @@
+/* Styles for Geoprofile */
+#user-bar {
+  border: black thin solid;
+  color: #333;
+  padding: .5em;
+  width: 20em;
+}

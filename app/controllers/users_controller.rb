@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   # render new.rhtml
   def new
   end
@@ -22,10 +23,12 @@ class UsersController < ApplicationController
   
   def index
     @users = User.find(:all)
+    @current_location_ip = request.remote_ip
   end
 
   def show
     @user = User.find(params[:id])
+    @users = User.find_within(10, :origin => @user)
   end
 
   def edit

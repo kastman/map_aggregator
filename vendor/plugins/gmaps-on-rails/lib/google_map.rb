@@ -8,7 +8,7 @@ class GoogleMap
                 :zoom
   
   def initialize(options = {})
-    self.dom_id = 'google_map'
+    self.dom_id = 'map_canvas'
     self.markers = []
     self.controls = [ :zoom, :overview, :scale, :type ]
     options.each_pair { |key, value| send("#{key}=", value) }

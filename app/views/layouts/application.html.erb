@@ -1,0 +1,23 @@
+<!DOCTYPE html "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Geoprofiles</title>
+	<%= stylesheet_link_tag 'application' %>
+</head>
+<body>
+    <%= yield %>
+  	<% if logged_in? %>
+		<p id="user-bar">
+			Welcome, <%= link_to current_user.login, current_user %> 
+			<em><%= link_to '(logout)', logout_path %></em>
+		</p>
+	<% else %>
+	  <p id="user-bar">Howdy, Stranger. 
+	    <%= link_to 'Login', login_path %> or
+	    <%= link_to 'Sign Up', signup_path %>
+	  </p>
+	<% end %>
+  </div> 
+</body>
+</html>
