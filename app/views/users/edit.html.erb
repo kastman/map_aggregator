@@ -1,0 +1,16 @@
+<h2><%= @user.login %></h2>
+
+<% form_for @user do |f| %>
+  <%= f.label :login %>
+  <%= f.text_field :login %>
+  
+  <p>
+  <%= f.label :lat, "Latitude:" %>
+  <%= f.text_field :lat %>
+  
+  <%= f.label :lng, "Longitude:" %>
+  <%= f.text_field :lng %>
+  </p>
+  
+  <%= submit_tag "Update" %>
+<% end %>

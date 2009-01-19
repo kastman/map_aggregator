@@ -1,0 +1,22 @@
+<h2><%= @user.login %></h2>
+
+<%
+  map = GoogleMap.new(:zoom => 11)
+  map.markers << GoogleMapMarker.new (
+    :map => map,
+    :lat => @user.lat,
+    :lng => @user.lng,
+    :html => 'The Schloss')
+%>
+
+<%= map.to_html %>
+<%= map.div("100%", "80%") %>
+<p>
+  <%= "(#{@user.lat},#{@user.lng}) | " %>
+  <%= link_to "Edit #{@user.login}", edit_user_path(@user) %>
+</p>
+
+<p>Default Lat:
+:lat => 43.083183,
+:lng => -89.379822,
+</p>
