@@ -1,6 +1,6 @@
 <h2><%= @user.login %></h2>
 
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAA3HdfrnxFAPWyY-aiJUxmqRTJQA0g3IQ9GZqIMmInSLzwtGDKaBQ0KYLwBEKSM7F9gCevcsIf6WPuIQ&amp;sensor=false"
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<%= GOOGLE_APPLICATION_ID %>&amp;sensor=false"
             type="text/javascript"></script>
 			
 <script type="text/javascript">
@@ -46,15 +46,15 @@
 <div id="map_canvas" style="width: 500px; height: 300px"></div>
 
 <% form_for @user, :html => { :multipart => :true } do |f| %>
-  <%= f.label :login %>
-  <%= f.text_field :login %>
+  <%#= f.label :login %>
+  <%#= f.text_field :login %>
   
   <p>
-  <%= f.label :lat, "Latitude:" %>
-  <%= f.text_field :lat %>
+  <%#= f.label :lat, "Latitude:" %>
+  <%= f.hidden_field :lat %>
   
-  <%= f.label :lng, "Longitude:" %>
-  <%= f.text_field :lng %>
+  <%#= f.label :lng, "Longitude:" %>
+  <%= f.hidden_field :lng %>
   
   <%= f.file_field :avatar %>
   

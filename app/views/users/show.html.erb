@@ -1,5 +1,5 @@
 <h2><%= @user.login %></h2>
-<%= image_tag @user.avatar.url %>
+  <%#= image_tag @user.avatar.url if @user.avatar.url %>
 <% map = GoogleMap.new %>
 <%  map.markers << GoogleMapMarker.new(
     :map => map,
@@ -19,13 +19,8 @@
 <% end%>
 
 <%= map.to_html %>
-<%= map.div("100%", "80%") %>
+<%= map.div("40em", "40em") %>
 <p style="font-size: 90%">
   <%= "Current Location: (#{@user.lat},#{@user.lng})" %><br/>
   <%= link_to "Edit Your Details", edit_user_path(@user) %>
-</p>
-
-<p>Default Lat:
-:lat => 43.083183,
-:lng => -89.379822,
 </p>

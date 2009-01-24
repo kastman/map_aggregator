@@ -36,8 +36,8 @@ module Geokit
       
       # As of 19 Jan 2009, Hostip.info is down,so use MultiGeocoder
       # instead of IpGeocoder temporarily.
-      location = Geocoders::MultiGeocoder.geocode(get_ip_address)
-      #location = Geocoders::IpGeocoder.geocode(get_ip_address)
+      #location = Geocoders::MultiGeocoder.geocode(get_ip_address)
+      location = Geocoders::IpGeocoder.geocode(get_ip_address)
       return location.success ? location : nil
     end
     
